@@ -32,6 +32,8 @@
         
         [APP.window makeKeyAndVisible];
         APP.alertWindow.hidden = YES;
+        
+        if (completion) completion();
     }];
 }
 
