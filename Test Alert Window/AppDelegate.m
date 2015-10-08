@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
+#import "AlertWindowRootViewController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = [[ViewController alloc] init];
+    [self.window makeKeyAndVisible];
+    
+    self.alertWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.alertWindow.windowLevel = UIWindowLevelAlert;
+    self.alertWindow.rootViewController = [[AlertWindowRootViewController alloc] init];
+    
     return YES;
 }
 

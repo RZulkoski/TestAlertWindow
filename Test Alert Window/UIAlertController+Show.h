@@ -10,4 +10,11 @@
 
 @interface UIAlertController (Show)
 
+- (void)show;
+- (void)showAnimated:(BOOL)animated;
+- (void)dismiss;
+
++ (void)dismissActiveAlertController;
++ (void)dismissActiveAlertControllerAnimated:(BOOL)animated;
+
 @end

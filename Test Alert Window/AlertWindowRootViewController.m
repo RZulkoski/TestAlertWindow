@@ -7,31 +7,32 @@
 //
 
 #import "AlertWindowRootViewController.h"
+#import "AppDelegate.h"
 
 @interface AlertWindowRootViewController ()
-
+@property (weak, nonatomic) UIAlertController *activeAlertController;
 @end
 
 @implementation AlertWindowRootViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (void)presentViewController:(UIViewController *)viewControllerToPresent animated:(BOOL)flag completion:(void (^)(void))completion {
+    
+    if (!self.activeAlertController && [viewControllerToPresent isKindOfClass:[UIAlertController class]]) {
+        [APP.alertWindow makeKeyAndVisible];
+        
+        self.activeAlertController = (UIAlertController *)viewControllerToPresent;
+        
+        [super presentViewController:viewControllerToPresent animated:flag completion:completion];
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion {
+    [super dismissViewControllerAnimated:flag completion:^{
+        self.activeAlertController = nil;
+        
+        [APP.window makeKeyAndVisible];
+        APP.alertWindow.hidden = YES;
+    }];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
